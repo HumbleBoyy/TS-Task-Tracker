@@ -1,3 +1,26 @@
+// Store data 
+const setState = (key:string, value:any):void => {
+     if(typeof value == "string"){
+         localStorage.setItem(key, value)
+     }else{
+        localStorage.setItem(key, JSON.stringify(value))
+     }
+}
+
+const getState = (key:string):any => {
+    const data = localStorage.getItem(key)
+    if(data != null){
+        try{
+            return JSON.parse(data)
+        }catch(err){
+            return data
+        }
+    }
+}
+
+
+
+
 let elForm:Element | null = document.querySelector(".todo_form")
 let elInput:Element | null = document.querySelector(".todo_input")
 let elList:Element | null = document.querySelector(".list")

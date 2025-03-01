@@ -1,4 +1,24 @@
 "use strict";
+// Store data 
+const setState = (key, value) => {
+    if (typeof value == "string") {
+        localStorage.setItem(key, value);
+    }
+    else {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+};
+const getState = (key) => {
+    const data = localStorage.getItem(key);
+    if (data != null) {
+        try {
+            return JSON.parse(data);
+        }
+        catch (err) {
+            return data;
+        }
+    }
+};
 let elForm = document.querySelector(".todo_form");
 let elInput = document.querySelector(".todo_input");
 let elList = document.querySelector(".list");
