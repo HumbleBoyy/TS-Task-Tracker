@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TS Task Tracker</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+          --color-clifford: #da373d;
+        }
+      </style>
 </head>
-<body>
+<body class="bg-slate-800">
     
+    <div class="flex justtify-center items-center flex-col gap-2 p-2">
+       <h2 class="text-[30px] font-bold text-white mx-auto uppercase">TS Task Tracker</h2>
+       <form class="todo_form bg-white w-[500px] p-2 rounded-md flex gap-1">
+          <input type="text" class="todo_input text-[18px] border-2 outline-none w-full border-blue-600 rounded-md p-1" placeholder="Enter Task">
+          <button type="submit" class="px-3 bg-blue-600 rounded-md text-white text-[18px]">Add</button>
+       </form>
+
+
+
+       <ul class="list w-[500px] bg-blue-600 p-2 rounded-md flex flex-col gap-2"></ul>
+    </div>
+
 
     <script src="./main.js"></script>
 </body>
