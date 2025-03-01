@@ -22,7 +22,7 @@ const getState = (key) => {
 let elForm = document.querySelector(".todo_form");
 let elInput = document.querySelector(".todo_input");
 let elList = document.querySelector(".list");
-const todos = [];
+const todos = getState("todos") || [];
 elForm === null || elForm === void 0 ? void 0 : elForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const data = {
@@ -33,6 +33,7 @@ elForm === null || elForm === void 0 ? void 0 : elForm.addEventListener("submit"
     todos.push(data);
     renderTodos(todos, elList);
     e.target.reset();
+    setState("todos", todos);
 });
 function renderTodos(arr, list) {
     if (list)
@@ -54,4 +55,5 @@ renderTodos(todos, elList);
 function handleDelete(id) {
     todos.splice(id, 1);
     renderTodos(todos, elList);
+    setState("todos", todos);
 }

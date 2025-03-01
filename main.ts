@@ -31,7 +31,7 @@ type TodoType = {
     isDone:boolean
 }
 
-const todos:TodoType[] = []
+const todos:TodoType[] = getState("todos") || []
 
 elForm?.addEventListener("submit", (e:Event):void=> {
     e.preventDefault()
@@ -43,6 +43,7 @@ elForm?.addEventListener("submit", (e:Event):void=> {
     todos.push(data)
     renderTodos(todos, elList);
     (e.target as HTMLFormElement).reset()
+    setState("todos", todos)
 })
 function renderTodos(arr:TodoType[], list:Element | null):void{
        if(list) list.innerHTML = ""
@@ -66,4 +67,5 @@ renderTodos(todos, elList)
 function handleDelete(id:number):void{
     todos.splice(id, 1)
     renderTodos(todos, elList)
+    setState("todos", todos)
 }
