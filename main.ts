@@ -25,7 +25,7 @@ let elForm:Element | null = document.querySelector(".todo_form")
 let elInput:Element | null = document.querySelector(".todo_input")
 let elList:Element | null = document.querySelector(".list")
 
-type TodoType = {
+interface TodoType  {
     id:number,
     value:string,
     isDone:boolean
@@ -51,11 +51,16 @@ function renderTodos(arr:TodoType[], list:Element | null):void{
           let elItem:Element = document.createElement("li")
           elItem.className = "flex items-center justify-between p-2 rounded-md bg-white"
           elItem.innerHTML = `
-             <div class="flex items-center gap-1">
-                <span>${index + 1}</span>
-                <strong>${item.value}</strong>
+             <div class="flex items-center justify-between gap-1 w-full">
+                <div class="flex items-center gap-1">
+                  <span class="text-[20px]">${index + 1})</span>
+                  <strong class="text-[22px] line-clamp-1 w-[400px]">${item.value}</strong>
+                </div>
+                <div class="flex items-center gap-1">
+                   <button onclick="handleEdit(${item.id})" class="bg-blue-500 py-2 px-3 text-white rounded-md cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></button>
+                   <button onclick="handleDelete(${index})" class="bg-red-500 py-2 px-3 text-white rounded-md cursor-pointer "><i class="fa-solid fa-trash"></i></button>
+                </div>
              </div>
-             <button onclick="handleDelete(${index})" class="bg-red-500 p-2 text-white rounded-md">Delete</button>
           `
 
           list?.appendChild(elItem)
@@ -64,8 +69,18 @@ function renderTodos(arr:TodoType[], list:Element | null):void{
 
 renderTodos(todos, elList)
 
+// Delete Part
 function handleDelete(id:number):void{
     todos.splice(id, 1)
     renderTodos(todos, elList)
     setState("todos", todos)
+}
+
+
+// Edit Part
+function handleEdit(id:number):void{
+    const newData = todos.find(item => item.id == id)
+   
+    
+    
 }
