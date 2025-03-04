@@ -32,15 +32,24 @@ interface TodoType  {
 }
 
 const todos:TodoType[] = getState("todos") || []
+let isEdit:boolean = false
+let editedid:number | null = null
 
 elForm?.addEventListener("submit", (e:Event):void=> {
     e.preventDefault()
-    const data:TodoType = {
-        id:todos.length ? todos[todos.length -1].id + 1 : 1,
-        value:(elInput as HTMLInputElement).value,
-        isDone:false
-    }
-    todos.push(data)
+     if(isEdit){
+        const newData = todos.find(item => item.id === editedid);
+        if(newData){
+            newData.value = (elInput as HTMLInputElement).value
+        }
+     }else{
+        const data:TodoType = {
+            id:todos.length ? todos[todos.length -1].id + 1 : 1,
+            value:(elInput as HTMLInputElement).value,
+            isDone:false
+        }
+        todos.push(data)
+     }
     renderTodos(todos, elList);
     (e.target as HTMLFormElement).reset()
     setState("todos", todos)
@@ -78,9 +87,12 @@ function handleDelete(id:number):void{
 
 
 // Edit Part
+
 function handleEdit(id:number):void{
-    const newData = todos.find(item => item.id == id)
-   
-    
-    
+    const newData = todos.find(item => item.id === id);
+    if(newData){
+        (elInput as HTMLInputElement).value = newData?.value
+        isEdit = true
+        editedid = id
+    }
 }

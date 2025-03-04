@@ -23,14 +23,24 @@ let elForm = document.querySelector(".todo_form");
 let elInput = document.querySelector(".todo_input");
 let elList = document.querySelector(".list");
 const todos = getState("todos") || [];
+let isEdit = false;
+let editedid = null;
 elForm === null || elForm === void 0 ? void 0 : elForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const data = {
-        id: todos.length ? todos[todos.length - 1].id + 1 : 1,
-        value: elInput.value,
-        isDone: false
-    };
-    todos.push(data);
+    if (isEdit) {
+        const newData = todos.find(item => item.id === editedid);
+        if (newData) {
+            newData.value = elInput.value;
+        }
+    }
+    else {
+        const data = {
+            id: todos.length ? todos[todos.length - 1].id + 1 : 1,
+            value: elInput.value,
+            isDone: false
+        };
+        todos.push(data);
+    }
     renderTodos(todos, elList);
     e.target.reset();
     setState("todos", todos);
@@ -65,5 +75,10 @@ function handleDelete(id) {
 }
 // Edit Part
 function handleEdit(id) {
-    const newData = todos.find(item => item.id == id);
+    const newData = todos.find(item => item.id === id);
+    if (newData) {
+        elInput.value = newData === null || newData === void 0 ? void 0 : newData.value;
+        isEdit = true;
+        editedid = id;
+    }
 }
