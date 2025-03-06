@@ -42,6 +42,8 @@ elForm?.addEventListener("submit", (e:Event):void=> {
         if(newData){
             newData.value = (elInput as HTMLInputElement).value
         }
+        isEdit = false
+        editedid = null
      }else{
         const data:TodoType = {
             id:todos.length ? todos[todos.length -1].id + 1 : 1,

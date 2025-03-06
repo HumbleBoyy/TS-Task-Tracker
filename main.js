@@ -32,6 +32,8 @@ elForm === null || elForm === void 0 ? void 0 : elForm.addEventListener("submit"
         if (newData) {
             newData.value = elInput.value;
         }
+        isEdit = false;
+        editedid = null;
     }
     else {
         const data = {
