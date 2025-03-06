@@ -52,6 +52,7 @@ elForm?.addEventListener("submit", (e:Event):void=> {
      }
     renderTodos(todos, elList);
     (e.target as HTMLFormElement).reset()
+    location.reload()
     setState("todos", todos)
 })
 function renderTodos(arr:TodoType[], list:Element | null):void{
